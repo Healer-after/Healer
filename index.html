@@ -33,7 +33,7 @@
             }
             .card-hover:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
             }
             .gradient-bg {
                 background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
@@ -44,21 +44,83 @@
                 color: transparent;
                 background-image: linear-gradient(135deg, #3B82F6, #10B981);
             }
+            .guide-step {
+                counter-increment: step-counter;
+            }
+            .guide-step::before {
+                content: counter(step-counter);
+                position: absolute;
+                left: -12px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: #3B82F6;
+                color: white;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                font-weight: bold;
+                z-index: 10;
+            }
+            .animated-gradient {
+                background: linear-gradient(
+                    135deg, 
+                    rgba(59, 130, 246, 0.05) 0%, 
+                    rgba(16, 185, 129, 0.05) 100%
+                );
+                background-size: 200% 200%;
+                animation: gradientShift 8s ease infinite;
+            }
+            @keyframes gradientShift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+                margin: 2rem 0;
+                position: relative;
+            }
+            .divider::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 3px;
+                background: linear-gradient(90deg, #3B82F6, #10B981);
+                border-radius: 3px;
+            }
+            .pulse-effect {
+                animation: pulse 3s infinite;
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                100% { transform: scale(1); }
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
     <!-- 顶部导航 -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 pulse-effect">
                 <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center">
                     <i class="fa fa-adobe text-white text-xl"></i>
                 </div>
                 <h1 class="text-xl font-bold text-dark">Adobe版本适配工具</h1>
             </div>
-            <div class="hidden md:block text-sm text-gray-500">
-                专业级配置检测 · 精准版本推荐
+            <div class="hidden md:flex items-center space-x-2">
+                <span class="px-3 py-1 rounded-full bg-blue-50 text-primary text-xs font-medium">
+                    专业版
+                </span>
             </div>
         </div>
     </header>
@@ -73,11 +135,91 @@
             <p class="text-gray-600 mb-8">
                 只需输入您的设备配置，即可获取最适合的Adobe软件版本推荐，确保最佳性能与兼容性
             </p>
+            <div class="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto"></div>
         </section>
+
+        <!-- 配置查询指南 -->
+        <section class="mb-12">
+            <h3 class="text-xl font-bold mb-8 text-center text-dark">
+                <i class="fa fa-question-circle text-primary mr-2"></i> 如何查询电脑配置？
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Windows配置查询 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover animated-gradient">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fa fa-windows text-primary"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-dark">Windows系统查询方法</h4>
+                    </div>
+                    
+                    <div class="space-y-6 pl-6 relative border-l-2 border-blue-100">
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看操作系统版本</h5>
+                            <p class="text-gray-600 text-sm">
+                                方法1：按下 <kbd class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700">Win + R</kbd>，输入 <code class="bg-gray-100 px-1 py-0.5 rounded text-xs text-primary">winver</code> 并回车<br>
+                                方法2：打开"设置" → "系统" → "关于"，在"Windows规格"中查看
+                            </p>
+                        </div>
+                        
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看处理器类型</h5>
+                            <p class="text-gray-600 text-sm">
+                                打开"设置" → "系统" → "关于"，在"设备规格"的"处理器"一栏查看（显示为Intel或AMD开头）
+                            </p>
+                        </div>
+                        
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看内存大小</h5>
+                            <p class="text-gray-600 text-sm">
+                                打开"设置" → "系统" → "关于"，在"设备规格"的"已安装内存(RAM)"一栏查看
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- macOS配置查询 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover animated-gradient">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                            <i class="fa fa-apple text-gray-700"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold text-dark">macOS系统查询方法</h4>
+                    </div>
+                    
+                    <div class="space-y-6 pl-6 relative border-l-2 border-gray-200">
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看操作系统版本</h5>
+                            <p class="text-gray-600 text-sm">
+                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-700"></i> → "关于本机"，在弹出窗口中查看"macOS版本"
+                            </p>
+                        </div>
+                        
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看芯片类型</h5>
+                            <p class="text-gray-600 text-sm">
+                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-700"></i> → "关于本机"，在"处理器"或"芯片"一栏查看
+                            </p>
+                        </div>
+                        
+                        <div class="relative guide-step pl-4">
+                            <h5 class="font-medium text-dark mb-2">查看内存大小</h5>
+                            <p class="text-gray-600 text-sm">
+                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-700"></i> → "关于本机"，在"内存"一栏查看
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分隔线 -->
+        <div class="divider"></div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- 配置输入部分 -->
-            <section class="lg:col-span-5 bg-white rounded-xl shadow-sm p-6 card-hover">
+            <section class="lg:col-span-5 bg-white rounded-xl shadow-md p-6 card-hover">
                 <h3 class="text-lg font-bold mb-6 flex items-center text-dark">
                     <i class="fa fa-sliders text-primary mr-2"></i> 设备配置
                 </h3>
@@ -178,7 +320,7 @@
             </section>
 
             <!-- 结果展示部分 -->
-            <section id="resultSection" class="lg:col-span-7 bg-white rounded-xl shadow-sm p-6 hidden card-hover">
+            <section id="resultSection" class="lg:col-span-7 bg-white rounded-xl shadow-md p-6 hidden card-hover">
                 <h3 class="text-lg font-bold mb-6 flex items-center text-dark">
                     <i class="fa fa-check-circle text-secondary mr-2"></i> 适配版本推荐
                 </h3>
@@ -190,7 +332,7 @@
                 
                 <div id="resultContent" class="space-y-6">
                     <!-- 推荐版本卡片 -->
-                    <div id="bestRecommendation" class="p-6 rounded-lg bg-gradient-to-br from-blue-50 to-green-50 border border-blue-100">
+                    <div id="bestRecommendation" class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-green-50 border border-blue-100 pulse-effect">
                         <div class="flex items-start justify-between mb-4">
                             <div>
                                 <h4 class="text-base font-bold text-dark flex items-center">
@@ -489,9 +631,8 @@
                     });
             }
             
-            // 确保至少有一个兼容版本（按需求不会出现无兼容版本的情况）
+            // 确保至少有一个兼容版本
             if (compatibilities.length === 0) {
-                // 这部分代码理论上不会执行，按需求所有配置都有兼容版本
                 compatibilities = os === 'windows' ? [windowsRequirements[windowsRequirements.length - 1]] : [macRequirements[macRequirements.length - 1]];
             }
             

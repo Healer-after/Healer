@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adobe版本适配工具 | 高级版</title>
+    <title>Adobe版本适配工具 | 专业版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -11,30 +11,13 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FF3366',
-                        secondary: '#6C5CE7',
-                        accent: '#00D2D3',
-                        dark: '#13151A',
-                        'dark-light': '#1E2129',
-                        'dark-lighter': '#2D303A'
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        glow: {
-                            '0%': { boxShadow: '0 0 5px rgba(255, 51, 102, 0.5)' },
-                            '100%': { boxShadow: '0 0 20px rgba(108, 92, 231, 0.8)' },
-                        }
                     }
                 }
             }
@@ -45,427 +28,393 @@
             .content-auto {
                 content-visibility: auto;
             }
-            .glass {
-                background: rgba(30, 33, 41, 0.7);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
+            .card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
-            .gradient-border {
-                position: relative;
-                border-radius: 0.75rem;
-                z-index: 0;
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
-            .gradient-border::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                border-radius: 0.75rem;
-                padding: 2px;
-                background: linear-gradient(135deg, #FF3366, #6C5CE7, #00D2D3);
-                -webkit-mask: 
-                    linear-gradient(#fff 0 0) content-box, 
-                    linear-gradient(#fff 0 0);
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
-                z-index: -1;
+            .gradient-bg {
+                background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
             }
             .text-gradient {
                 background-clip: text;
                 -webkit-background-clip: text;
                 color: transparent;
-                background-image: linear-gradient(90deg, #FF3366, #6C5CE7);
-            }
-            .hover-lift {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .hover-lift:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            }
-            .input-focus {
-                transition: all 0.3s ease;
-            }
-            .input-focus:focus {
-                border-color: #6C5CE7;
-                box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+                background-image: linear-gradient(135deg, #3B82F6, #10B981);
             }
         }
     </style>
 </head>
-<body class="bg-dark text-gray-200 min-h-screen font-sans">
-    <!-- 背景装饰 -->
-    <div class="fixed inset-0 overflow-hidden -z-10">
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full filter blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/3 right-1/3 w-72 h-72 bg-accent/20 rounded-full filter blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-    </div>
-
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
     <!-- 顶部导航 -->
-    <header class="glass sticky top-0 z-50 transition-all duration-300 border-b border-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-float">
+                <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center">
                     <i class="fa fa-adobe text-white text-xl"></i>
                 </div>
-                <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Adobe适配工具</h1>
+                <h1 class="text-xl font-bold text-dark">Adobe版本适配工具</h1>
             </div>
-            <div class="hidden md:flex items-center space-x-1">
-                <span class="text-xs px-2 py-1 rounded-full bg-dark-lighter text-accent">
-                    <i class="fa fa-rocket mr-1"></i> 高级版
-                </span>
+            <div class="hidden md:block text-sm text-gray-500">
+                专业级配置检测 · 精准版本推荐
             </div>
         </div>
     </header>
 
     <!-- 主要内容 -->
-    <main class="container mx-auto px-4 py-12 md:py-20">
+    <main class="flex-grow container mx-auto px-4 py-12">
         <!-- 介绍部分 -->
-        <section class="text-center mb-16 max-w-3xl mx-auto relative z-10">
-            <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-6 leading-tight">
-                找到您电脑支持的<br><span class="text-gradient">最高版本Adobe</span>
+        <section class="text-center mb-12 max-w-3xl mx-auto">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4 text-dark">
+                找到您设备支持的<span class="text-gradient">最佳Adobe版本</span>
             </h2>
-            <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-                只需几步，精准匹配您的设备配置，获取最佳性能的Adobe版本
+            <p class="text-gray-600 mb-8">
+                只需输入您的设备配置，即可获取最适合的Adobe软件版本推荐，确保最佳性能与兼容性
             </p>
-            <div class="flex justify-center space-x-2">
-                <div class="w-3 h-3 rounded-full bg-primary"></div>
-                <div class="w-3 h-3 rounded-full bg-secondary"></div>
-                <div class="w-3 h-3 rounded-full bg-accent"></div>
-            </div>
         </section>
 
-        <!-- 配置查询指南 -->
-        <section class="gradient-border bg-dark-light p-6 md:p-8 mb-12 max-w-4xl mx-auto hover-lift relative z-10">
-            <h3 class="text-xl font-bold mb-6 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center mr-3">
-                    <i class="fa fa-question-circle text-accent"></i>
-                </span>
-                如何查询电脑配置？
-            </h3>
-            
-            <div class="space-y-8">
-                <!-- Windows配置查询 -->
-                <div id="windowsGuide" class="block">
-                    <h4 class="text-lg font-semibold mb-4 flex items-center text-white">
-                        <i class="fa fa-windows text-blue-400 mr-2"></i> Windows系统查询方法
-                    </h4>
-                    
-                    <div class="space-y-4 pl-4 border-l-2 border-secondary/30">
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">1</span>
-                                查看操作系统版本
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                方法1：按下 <kbd class="px-2 py-1 bg-dark rounded text-xs text-gray-300">Win + R</kbd>，输入 <code class="bg-dark px-1 py-0.5 rounded text-xs text-primary">winver</code> 并回车，在弹出窗口中查看版本信息<br>
-                                方法2：打开"设置" → "系统" → "关于"，在"Windows规格"中查看版本号
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">2</span>
-                                查看处理器类型
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                打开"设置" → "系统" → "关于"，在"设备规格"的"处理器"一栏查看（通常显示为Intel或AMD开头）
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">3</span>
-                                查看内存大小
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                打开"设置" → "系统" → "关于"，在"设备规格"的"已安装内存(RAM)"一栏查看
-                            </p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- 配置输入部分 -->
+            <section class="lg:col-span-5 bg-white rounded-xl shadow-sm p-6 card-hover">
+                <h3 class="text-lg font-bold mb-6 flex items-center text-dark">
+                    <i class="fa fa-sliders text-primary mr-2"></i> 设备配置
+                </h3>
+                
+                <div class="space-y-6">
+                    <!-- 操作系统选择 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            操作系统 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative inline-flex items-center p-4 rounded-lg cursor-pointer transition-all duration-200 border-2 border-gray-200 hover:border-primary group">
+                                <input type="radio" name="os" value="windows" class="w-5 h-5 text-primary" checked>
+                                <span class="ml-3 text-gray-800 group-hover:text-primary"><i class="fa fa-windows text-primary mr-2"></i> Windows</span>
+                            </label>
+                            <label class="relative inline-flex items-center p-4 rounded-lg cursor-pointer transition-all duration-200 border-2 border-gray-200 hover:border-gray-700 group">
+                                <input type="radio" name="os" value="mac" class="w-5 h-5 text-gray-600">
+                                <span class="ml-3 text-gray-800 group-hover:text-gray-700"><i class="fa fa-apple text-gray-700 mr-2"></i> macOS</span>
+                            </label>
                         </div>
                     </div>
+
+                    <!-- 系统版本选择 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            系统版本 <span class="text-red-500">*</span>
+                        </label>
+                        <div id="windowsVersion" class="block">
+                            <select id="winVersionSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                <option value="win10_22h1">Windows 10 22H1及以上</option>
+                                <option value="win10_21h1">Windows 10 21H1</option>
+                                <option value="win10_20h1">Windows 10 20H1</option>
+                                <option value="win10_1909">Windows 10 1909</option>
+                                <option value="win10_1903">Windows 10 1903</option>
+                                <option value="win10_1809">Windows 10 1809</option>
+                                <option value="win11">Windows 11 (所有版本)</option>
+                                <option value="win7_8">Windows 7 / 8</option>
+                                <option value="winxp">Windows XP</option>
+                            </select>
+                        </div>
+                        <div id="macVersion" class="block hidden">
+                            <select id="macVersionSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                <option value="15">macOS Sequoia (15)</option>
+                                <option value="14">macOS Sonoma (14)</option>
+                                <option value="13">macOS Ventura (13)</option>
+                                <option value="12">macOS Monterey (12)</option>
+                                <option value="11">macOS Big Sur (11)</option>
+                                <option value="10.15">macOS Catalina (10.15)</option>
+                                <option value="10.14">macOS Mojave (10.14)</option>
+                                <option value="10.13">macOS High Sierra (10.13)</option>
+                                <option value="10.12">macOS Sierra (10.12)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 芯片/处理器选择 -->
+                    <div id="chipSection">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            处理器/芯片 <span class="text-red-500">*</span>
+                        </label>
+                        <div id="windowsChip" class="block">
+                            <select id="winChipSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                <option value="intel">Intel 处理器</option>
+                                <option value="amd">AMD 处理器</option>
+                            </select>
+                        </div>
+                        <div id="macChip" class="block hidden">
+                            <select id="macChipSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                                <option value="intel">Intel 处理器</option>
+                                <option value="m1">Apple M1 芯片</option>
+                                <option value="m2">Apple M2 芯片</option>
+                                <option value="m3">Apple M3 芯片</option>
+                                <option value="m4">Apple M4 芯片</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 内存选择 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            内存大小 <span class="text-red-500">*</span>
+                        </label>
+                        <select id="memorySelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                            <option value="4">4GB</option>
+                            <option value="8">8GB</option>
+                            <option value="16" selected>16GB</option>
+                            <option value="32">32GB及以上</option>
+                        </select>
+                    </div>
+
+                    <!-- 查询按钮 -->
+                    <div class="pt-4">
+                        <button id="queryBtn" class="w-full py-3 px-6 gradient-bg rounded-lg font-medium text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg flex items-center justify-center">
+                            <i class="fa fa-search mr-2"></i> 查找适配版本
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 结果展示部分 -->
+            <section id="resultSection" class="lg:col-span-7 bg-white rounded-xl shadow-sm p-6 hidden card-hover">
+                <h3 class="text-lg font-bold mb-6 flex items-center text-dark">
+                    <i class="fa fa-check-circle text-secondary mr-2"></i> 适配版本推荐
+                </h3>
+                
+                <div id="loadingIndicator" class="py-16 text-center">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                    <p class="mt-4 text-gray-500">正在分析您的配置...</p>
                 </div>
                 
-                <!-- macOS配置查询 -->
-                <div id="macGuide" class="block">
-                    <h4 class="text-lg font-semibold mb-4 flex items-center text-white">
-                        <i class="fa fa-apple text-gray-300 mr-2"></i> macOS系统查询方法
-                    </h4>
+                <div id="resultContent" class="space-y-6">
+                    <!-- 推荐版本卡片 -->
+                    <div id="bestRecommendation" class="p-6 rounded-lg bg-gradient-to-br from-blue-50 to-green-50 border border-blue-100">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h4 class="text-base font-bold text-dark flex items-center">
+                                    <span class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mr-2 text-xs">
+                                        <i class="fa fa-trophy text-primary"></i>
+                                    </span>
+                                    最佳推荐版本
+                                </h4>
+                                <p class="text-gray-500 text-sm mt-1">基于您的配置，性能与兼容性最佳</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                                首选
+                            </span>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-t border-blue-100 pt-4">
+                            <div>
+                                <h5 id="bestVersion" class="text-xl font-bold text-dark">Adobe 2025</h5>
+                                <p class="text-gray-600 mt-1" id="bestVersionDesc">完全兼容您的系统配置，可发挥最佳性能</p>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="space-y-4 pl-4 border-l-2 border-secondary/30">
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">1</span>
-                                查看操作系统版本
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-300"></i> → "关于本机"，在弹出窗口中查看"macOS版本"
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">2</span>
-                                查看芯片类型
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-300"></i> → "关于本机"，在"处理器"或"芯片"一栏查看（显示为Intel或Apple M1/M2/M3/M4）
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 rounded-lg bg-dark-lighter/50 border border-gray-800 transition-all duration-300 hover:border-secondary/50">
-                            <h5 class="font-medium text-accent mb-2 flex items-center">
-                                <span class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mr-2 text-xs">3</span>
-                                查看内存大小
-                            </h5>
-                            <p class="text-gray-400 text-sm">
-                                点击屏幕左上角苹果图标 <i class="fa fa-apple text-gray-300"></i> → "关于本机"，在"内存"一栏查看
-                            </p>
+                    <!-- 其他兼容版本 -->
+                    <div>
+                        <h4 class="text-base font-bold text-dark mb-4 flex items-center">
+                            <span class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center mr-2 text-xs">
+                                <i class="fa fa-th text-gray-600"></i>
+                            </span>
+                            其他兼容版本
+                        </h4>
+                        <div id="otherVersions" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- 其他版本卡片将通过JS动态生成 -->
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- 配置输入部分 -->
-        <section class="gradient-border bg-dark-light p-6 md:p-8 mb-12 max-w-4xl mx-auto hover-lift relative z-10">
-            <h3 class="text-xl font-bold mb-6 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-                    <i class="fa fa-cogs text-primary"></i>
-                </span>
-                电脑配置信息
-            </h3>
-            
-            <div class="space-y-8">
-                <!-- 操作系统选择 -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                        操作系统 <span class="text-primary">*</span>
-                    </label>
-                    <div class="flex flex-wrap gap-4">
-                        <label class="relative inline-flex items-center p-5 rounded-lg cursor-pointer transition-all duration-300 border-2 border-gray-800 hover:border-blue-500 group">
-                            <input type="radio" name="os" value="windows" class="w-5 h-5 text-blue-500" checked>
-                            <span class="ml-3 text-white group-hover:text-blue-400"><i class="fa fa-windows text-blue-400 mr-2"></i> Windows</span>
-                            <div class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-blue-500 hidden group-hover:block flex items-center justify-center text-xs">
-                                <i class="fa fa-check"></i>
-                            </div>
-                        </label>
-                        <label class="relative inline-flex items-center p-5 rounded-lg cursor-pointer transition-all duration-300 border-2 border-gray-800 hover:border-gray-500 group">
-                            <input type="radio" name="os" value="mac" class="w-5 h-5 text-gray-400">
-                            <span class="ml-3 text-white group-hover:text-gray-300"><i class="fa fa-apple text-gray-300 mr-2"></i> macOS</span>
-                            <div class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-gray-500 hidden group-hover:block flex items-center justify-center text-xs">
-                                <i class="fa fa-check"></i>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 系统版本选择 -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                        系统版本 <span class="text-primary">*</span>
-                    </label>
-                    <div id="windowsVersion" class="block">
-                        <select id="winVersionSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                            <option value="winxp">Windows XP (所有版本)</option>
-                            <option value="winvista">Windows Vista (所有版本)</option>
-                            <option value="win7_32">Windows 7 32位</option>
-                            <option value="win7_64">Windows 7 64位</option>
-                            <option value="win8">Windows 8</option>
-                            <option value="win8.1">Windows 8.1</option>
-                            <option value="win10_1507">Windows 10 1507 (RTM)</option>
-                            <option value="win10_1511">Windows 10 1511 (十一月更新)</option>
-                            <option value="win10_1607">Windows 10 1607 (周年更新)</option>
-                            <option value="win10_1703">Windows 10 1703 (创意者更新)</option>
-                            <option value="win10_1709">Windows 10 1709 (秋季创意者更新)</option>
-                            <option value="win10_1803">Windows 10 1803 (四月更新)</option>
-                            <option value="win10_1809">Windows 10 1809 (十月更新)</option>
-                            <option value="win10_1903">Windows 10 1903 (五月更新)</option>
-                            <option value="win10_1909">Windows 10 1909 (十一月更新)</option>
-                            <option value="win10_2004">Windows 10 2004 (五月更新)</option>
-                            <option value="win10_20h2">Windows 10 20H2 (十月更新)</option>
-                            <option value="win10_21h1">Windows 10 21H1 (五月更新)</option>
-                            <option value="win10_21h2">Windows 10 21H2 (十一月更新)</option>
-                            <option value="win10_22h2">Windows 10 22H2</option>
-                            <option value="win11_21h2">Windows 11 21H2 (首发版)</option>
-                            <option value="win11_22h2">Windows 11 22H2</option>
-                            <option value="win11_23h2">Windows 11 23H2</option>
-                            <option value="win11_24h2">Windows 11 24H2</option>
-                        </select>
-                    </div>
-                    <div id="macVersion" class="block hidden">
-                        <select id="macVersionSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                            <option value="10.4">Mac OS X Tiger (10.4)</option>
-                            <option value="10.5">Mac OS X Leopard (10.5)</option>
-                            <option value="10.6">Mac OS X Snow Leopard (10.6)</option>
-                            <option value="10.7">Mac OS X Lion (10.7)</option>
-                            <option value="10.8">OS X Mountain Lion (10.8)</option>
-                            <option value="10.9">OS X Mavericks (10.9)</option>
-                            <option value="10.10">OS X Yosemite (10.10)</option>
-                            <option value="10.11">OS X El Capitan (10.11)</option>
-                            <option value="10.12">macOS Sierra (10.12)</option>
-                            <option value="10.13">macOS High Sierra (10.13)</option>
-                            <option value="10.14">macOS Mojave (10.14)</option>
-                            <option value="10.15">macOS Catalina (10.15)</option>
-                            <option value="11">macOS Big Sur (11)</option>
-                            <option value="12">macOS Monterey (12)</option>
-                            <option value="13">macOS Ventura (13)</option>
-                            <option value="14">macOS Sonoma (14)</option>
-                            <option value="15">macOS Sequoia (15)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- 芯片/处理器选择 -->
-                <div id="chipSection">
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                        处理器/芯片 <span class="text-primary">*</span>
-                    </label>
-                    <div id="windowsChip" class="block">
-                        <select id="winChipSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                            <option value="intel">Intel 处理器</option>
-                            <option value="amd">AMD 处理器</option>
-                        </select>
-                    </div>
-                    <div id="macChip" class="block hidden">
-                        <select id="macChipSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                            <option value="intel">Intel 处理器</option>
-                            <option value="m1">Apple M1 芯片</option>
-                            <option value="m2">Apple M2 芯片</option>
-                            <option value="m3">Apple M3 芯片</option>
-                            <option value="m4">Apple M4 芯片</option>
-                            <option value="m1pro">Apple M1 Pro 芯片</option>
-                            <option value="m1max">Apple M1 Max 芯片</option>
-                            <option value="m1ultra">Apple M1 Ultra 芯片</option>
-                            <option value="m2pro">Apple M2 Pro 芯片</option>
-                            <option value="m2max">Apple M2 Max 芯片</option>
-                            <option value="m2ultra">Apple M2 Ultra 芯片</option>
-                            <option value="m3pro">Apple M3 Pro 芯片</option>
-                            <option value="m3max">Apple M3 Max 芯片</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- 内存选择 -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                        内存大小 <span class="text-primary">*</span>
-                    </label>
-                    <select id="memorySelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                        <option value="2">2GB 及以下</option>
-                        <option value="4">4GB</option>
-                        <option value="8">8GB</option>
-                        <option value="16" selected>16GB</option>
-                        <option value="32">32GB</option>
-                        <option value="64">64GB</option>
-                        <option value="128">128GB 及以上</option>
-                    </select>
-                </div>
-
-                <!-- Adobe产品选择 -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">
-                        Adobe产品 <span class="text-primary">*</span>
-                    </label>
-                    <select id="productSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                        <option value="photoshop">Photoshop</option>
-                        <option value="illustrator">Illustrator</option>
-                        <option value="premiere">Premiere Pro</option>
-                        <option value="aftereffects">After Effects</option>
-                        <option value="indesign">InDesign</option>
-                        <option value="lightroom">Lightroom</option>
-                        <option value="acrobat">Acrobat</option>
-                    </select>
-                </div>
-
-                <!-- 查询按钮 -->
-                <div class="pt-4">
-                    <button id="queryBtn" class="w-full py-4 px-6 bg-gradient-to-r from-primary to-secondary rounded-lg font-bold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 flex items-center justify-center">
-                        <i class="fa fa-search mr-2"></i> 查询适配版本
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 结果展示部分 -->
-        <section id="resultSection" class="gradient-border bg-dark-light p-6 md:p-8 mb-12 max-w-4xl mx-auto hidden hover-lift relative z-10">
-            <h3 class="text-xl font-bold mb-6 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center mr-3">
-                    <i class="fa fa-check-circle text-accent"></i>
-                </span>
-                适配版本推荐
-            </h3>
-            
-            <div id="loadingIndicator" class="py-12 text-center hidden">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                <p class="mt-4 text-gray-400">正在分析您的配置...</p>
-            </div>
-            
-            <div id="resultContent" class="space-y-6">
-                <!-- 推荐版本卡片 -->
-                <div id="bestRecommendation" class="p-6 rounded-lg bg-gradient-to-br from-dark-lighter to-dark border border-gray-800">
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <h4 class="text-lg font-bold text-white flex items-center">
-                                <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-2 text-sm">
-                                    <i class="fa fa-trophy text-primary"></i>
-                                </span>
-                                推荐版本
-                            </h4>
-                            <p class="text-gray-400 text-sm mt-1">基于您的配置，性能最佳的版本</p>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                            最佳选择
-                        </span>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between border-t border-gray-800 pt-4">
-                        <div>
-                            <h5 id="bestVersion" class="text-2xl font-bold text-white">Adobe Photoshop 2025</h5>
-                            <p class="text-gray-400 mt-1">完全兼容您的系统配置，可发挥最佳性能</p>
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                            <button class="px-4 py-2 bg-primary/20 hover:bg-primary/30 text-primary rounded-lg transition-colors duration-300">
-                                <i class="fa fa-info-circle mr-1"></i> 版本详情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 其他兼容版本 -->
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-4 flex items-center">
-                        <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center mr-2 text-sm">
-                            <i class="fa fa-th text-secondary"></i>
-                        </span>
-                        其他兼容版本
-                    </h4>
-                    <div id="otherVersions" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- 其他版本卡片将通过JS动态生成 -->
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <!-- 页脚 -->
-    <footer class="glass border-t border-gray-800 py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm">
-                © 2024 Adobe版本适配工具 | 本工具仅提供版本兼容性参考，非官方工具
-            </p>
-            <div class="flex justify-center space-x-4 mt-4">
-                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
-                    <i class="fa fa-github text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
-                    <i class="fa fa-twitter text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
-                    <i class="fa fa-envelope text-xl"></i>
-                </a>
-            </div>
+    <footer class="bg-dark text-gray-400 py-8 mt-16">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>© 2024 Adobe版本适配工具 | 本工具仅提供版本兼容性参考，非官方工具</p>
         </div>
     </footer>
 
     <script>
+        // 系统版本比较辅助函数 - Windows
+        function compareWindowsVersions(userVersion, requiredVersion) {
+            // Windows版本优先级映射
+            const versionOrder = {
+                'winxp': 1,
+                'win7_8': 2,
+                'win10_1809': 3,
+                'win10_1903': 4,
+                'win10_1909': 5,
+                'win10_20h1': 6,
+                'win10_21h1': 7,
+                'win10_22h1': 8,
+                'win11': 9  // Windows 11 高于所有Windows 10版本
+            };
+            
+            return versionOrder[userVersion] >= versionOrder[requiredVersion];
+        }
+
+        // 系统版本比较辅助函数 - macOS
+        function compareMacVersions(userVersion, requiredVersion) {
+            // macOS版本优先级映射
+            const versionOrder = {
+                '10.12': 1,
+                '10.13': 2,
+                '10.14': 3,
+                '10.15': 4,
+                '11': 5,
+                '12': 6,
+                '13': 7,
+                '14': 8,
+                '15': 9
+            };
+            
+            return versionOrder[userVersion] >= versionOrder[requiredVersion];
+        }
+
+        // Adobe版本要求数据 - Windows
+        const windowsRequirements = [
+            {
+                version: "2025",
+                minOS: ["win10_22h1", "win11"],
+                minRAM: 16,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 22H1以上及Windows 11，推荐16GB内存以获得最佳性能"
+            },
+            {
+                version: "2024",
+                minOS: ["win10_21h1", "win10_22h1", "win11"],
+                minRAM: 16,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 21H1以上及Windows 11，16GB内存可确保流畅运行"
+            },
+            {
+                version: "2023",
+                minOS: ["win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 8,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 20H1以上及Windows 11，8GB内存即可满足需求"
+            },
+            {
+                version: "2022",
+                minOS: ["win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 8,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 1909以上及Windows 11，对硬件要求适中"
+            },
+            {
+                version: "2021",
+                minOS: ["win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 8,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 1903以上及Windows 11，兼容性广泛"
+            },
+            {
+                version: "2020",
+                minOS: ["win10_1809", "win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 8,
+                supportedChips: ["intel", "amd"],
+                description: "支持Windows 10 1809以上及Windows 11，对系统要求较低"
+            },
+            {
+                version: "2019",
+                minOS: ["win7_8", "win10_1809", "win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 8,
+                supportedChips: ["intel", "amd"],
+                description: "兼容Windows 7/8及所有Windows 10/11版本，适应性强"
+            },
+            {
+                version: "2018",
+                minOS: ["win7_8", "win10_1809", "win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 4,
+                supportedChips: ["intel", "amd"],
+                description: "兼容多种Windows版本，仅需4GB内存即可运行"
+            },
+            {
+                version: "2017",
+                minOS: ["win7_8", "win10_1809", "win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 4,
+                supportedChips: ["intel", "amd"],
+                description: "对硬件配置要求低，适合老旧电脑"
+            },
+            {
+                version: "CS6",
+                minOS: ["winxp", "win7_8", "win10_1809", "win10_1903", "win10_1909", "win10_20h1", "win10_21h1", "win10_22h1", "win11"],
+                minRAM: 4,
+                supportedChips: ["intel", "amd"],
+                description: "兼容包括Windows XP在内的所有主流Windows系统"
+            }
+        ];
+
+        // Adobe版本要求数据 - macOS
+        const macRequirements = [
+            {
+                version: "2025",
+                minOS: ["13", "14", "15"],
+                minRAM: 16,
+                supportedChips: ["m1", "m2", "m3", "m4"],
+                description: "支持macOS Ventura及以上版本，专为Apple芯片优化"
+            },
+            {
+                version: "2024",
+                minOS: ["13", "14", "15"],
+                minRAM: 16,
+                supportedChips: ["intel", "m1", "m2", "m3", "m4"],
+                description: "支持macOS Ventura及以上版本，兼容Intel和Apple芯片"
+            },
+            {
+                version: "2023",
+                minOS: ["11", "12", "13", "14", "15"],
+                minRAM: 16,
+                supportedChips: ["intel", "m1", "m2", "m3", "m4"],
+                description: "支持macOS Big Sur及以上版本，兼容性广泛"
+            },
+            {
+                version: "2022",
+                minOS: ["10.15", "11", "12", "13", "14", "15"],
+                minRAM: 16,
+                supportedChips: ["intel", "m1", "m2", "m3", "m4"],
+                description: "支持macOS Catalina及以上版本，对硬件要求适中"
+            },
+            {
+                version: "2021 (Apple芯片)",
+                minOS: ["10.15", "11", "12", "13", "14", "15"],
+                minRAM: 8,
+                supportedChips: ["m1", "m2", "m3"],
+                description: "专为Apple芯片优化，支持macOS Catalina及以上版本"
+            },
+            {
+                version: "2021 (Intel芯片)",
+                minOS: ["10.15", "11", "12", "13", "14", "15"],
+                minRAM: 8,
+                supportedChips: ["intel"],
+                description: "针对Intel芯片优化，支持macOS Catalina及以上版本"
+            },
+            {
+                version: "2020",
+                minOS: ["10.14", "10.15", "11", "12", "13", "14", "15"],
+                minRAM: 8,
+                supportedChips: ["intel", "m1", "m2"],
+                description: "支持macOS Mojave及以上版本，兼容性良好"
+            },
+            {
+                version: "2019",
+                minOS: ["10.13", "10.14", "10.15", "11", "12", "13", "14", "15"],
+                minRAM: 8,
+                supportedChips: ["intel"],
+                description: "支持macOS High Sierra及以上版本，适合Intel处理器"
+            },
+            {
+                version: "2018",
+                minOS: ["10.12", "10.13", "10.14", "10.15", "11", "12", "13", "14", "15"],
+                minRAM: 4,
+                supportedChips: ["intel"],
+                description: "支持macOS Sierra及以上版本，对硬件要求较低"
+            }
+        ];
+
         // 操作系统切换逻辑
         document.querySelectorAll('input[name="os"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -492,48 +441,98 @@
             loadingIndicator.classList.remove('hidden');
             resultContent.classList.add('hidden');
             
+            // 获取用户输入的配置
+            const os = document.querySelector('input[name="os"]:checked').value;
+            const memory = parseInt(document.getElementById('memorySelect').value);
+            
+            let compatibilities = [];
+            
+            if (os === 'windows') {
+                const osVersion = document.getElementById('winVersionSelect').value;
+                const chip = document.getElementById('winChipSelect').value;
+                
+                // 筛选兼容的Windows版本
+                compatibilities = windowsRequirements
+                    .filter(version => 
+                        version.minOS.includes(osVersion) &&
+                        version.supportedChips.includes(chip) &&
+                        memory >= version.minRAM
+                    )
+                    .sort((a, b) => {
+                        // 按版本号降序排列
+                        if (a.version === "CS6") return 1;
+                        if (b.version === "CS6") return -1;
+                        return parseInt(b.version) - parseInt(a.version);
+                    });
+            } else {
+                const osVersion = document.getElementById('macVersionSelect').value;
+                const chip = document.getElementById('macChipSelect').value;
+                
+                // 筛选兼容的macOS版本
+                compatibilities = macRequirements
+                    .filter(version => 
+                        version.minOS.includes(osVersion) &&
+                        version.supportedChips.includes(chip) &&
+                        memory >= version.minRAM
+                    )
+                    .sort((a, b) => {
+                        // 按版本号降序排列
+                        if (a.version.includes("2025")) return -1;
+                        if (b.version.includes("2025")) return 1;
+                        if (a.version.includes("2024")) return -1;
+                        if (b.version.includes("2024")) return 1;
+                        if (a.version.includes("2023")) return -1;
+                        if (b.version.includes("2023")) return 1;
+                        if (a.version.includes("2022")) return -1;
+                        if (b.version.includes("2022")) return 1;
+                        return 0;
+                    });
+            }
+            
+            // 确保至少有一个兼容版本（按需求不会出现无兼容版本的情况）
+            if (compatibilities.length === 0) {
+                // 这部分代码理论上不会执行，按需求所有配置都有兼容版本
+                compatibilities = os === 'windows' ? [windowsRequirements[windowsRequirements.length - 1]] : [macRequirements[macRequirements.length - 1]];
+            }
+            
             // 模拟加载延迟
             setTimeout(() => {
                 // 隐藏加载状态，显示结果
                 loadingIndicator.classList.add('hidden');
                 resultContent.classList.remove('hidden');
                 
-                // 这里可以添加实际的查询逻辑
-                // 以下是示例数据
-                const osType = document.querySelector('input[name="os"]:checked').value;
-                const product = document.getElementById('productSelect').value;
-                const productNames = {
-                    'photoshop': 'Photoshop',
-                    'illustrator': 'Illustrator',
-                    'premiere': 'Premiere Pro',
-                    'aftereffects': 'After Effects',
-                    'indesign': 'InDesign',
-                    'lightroom': 'Lightroom',
-                    'acrobat': 'Acrobat'
-                };
-                
                 // 更新最佳推荐版本
-                document.getElementById('bestVersion').textContent = `Adobe ${productNames[product]} 2025`;
-                
-                // 生成其他兼容版本
+                const bestVersionEl = document.getElementById('bestVersion');
+                const bestVersionDescEl = document.getElementById('bestVersionDesc');
                 const otherVersionsContainer = document.getElementById('otherVersions');
+                
+                // 最高适配版本
+                bestVersionEl.textContent = `Adobe ${compatibilities[0].version}`;
+                bestVersionDescEl.textContent = compatibilities[0].description;
+                
+                // 清空其他版本容器
                 otherVersionsContainer.innerHTML = '';
                 
-                const versions = ['2024', '2023', '2022', '2021'];
-                versions.forEach(version => {
-                    const versionCard = document.createElement('div');
-                    versionCard.className = 'p-4 rounded-lg bg-dark-lighter border border-gray-800 hover:border-secondary/50 transition-all duration-300';
-                    versionCard.innerHTML = `
-                        <h5 class="font-bold text-white">Adobe ${productNames[product]} ${version}</h5>
-                        <p class="text-gray-400 text-sm mt-1">兼容您的系统，性能良好</p>
-                        <button class="mt-3 px-3 py-1 bg-secondary/20 hover:bg-secondary/30 text-secondary rounded-lg text-sm transition-colors duration-300">
-                            查看详情
-                        </button>
+                // 生成其他兼容版本
+                if (compatibilities.length > 1) {
+                    compatibilities.slice(1).forEach(version => {
+                        const versionCard = document.createElement('div');
+                        versionCard.className = 'p-4 rounded-lg bg-gray-50 border border-gray-100 hover:border-primary/20 transition-all duration-300';
+                        versionCard.innerHTML = `
+                            <h5 class="font-medium text-dark">Adobe ${version.version}</h5>
+                            <p class="text-gray-600 text-sm mt-1">${version.description}</p>
+                        `;
+                        otherVersionsContainer.appendChild(versionCard);
+                    });
+                } else {
+                    otherVersionsContainer.innerHTML = `
+                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-100 col-span-full">
+                            <p class="text-gray-500">没有其他兼容版本</p>
+                        </div>
                     `;
-                    otherVersionsContainer.appendChild(versionCard);
-                });
+                }
                 
-            }, 1500);
+            }, 1200);
         });
     </script>
 </body>

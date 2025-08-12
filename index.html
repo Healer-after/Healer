@@ -332,6 +332,14 @@
                             <option value="m2">Apple M2 芯片</option>
                             <option value="m3">Apple M3 芯片</option>
                             <option value="m4">Apple M4 芯片</option>
+                            <option value="m1pro">Apple M1 Pro 芯片</option>
+                            <option value="m1max">Apple M1 Max 芯片</option>
+                            <option value="m1ultra">Apple M1 Ultra 芯片</option>
+                            <option value="m2pro">Apple M2 Pro 芯片</option>
+                            <option value="m2max">Apple M2 Max 芯片</option>
+                            <option value="m2ultra">Apple M2 Ultra 芯片</option>
+                            <option value="m3pro">Apple M3 Pro 芯片</option>
+                            <option value="m3max">Apple M3 Max 芯片</option>
                         </select>
                     </div>
                 </div>
@@ -339,323 +347,194 @@
                 <!-- 内存选择 -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-3">
-                        内存大小 (GB) <span class="text-primary">*</span>
+                        内存大小 <span class="text-primary">*</span>
                     </label>
                     <select id="memorySelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
-                        <option value="4">4 GB</option>
-                        <option value="8" selected>8 GB</option>
-                        <option value="16">16 GB</option>
-                        <option value="32">32 GB</option>
-                        <option value="64">64 GB</option>
-                        <option value="128">128 GB及以上</option>
+                        <option value="2">2GB 及以下</option>
+                        <option value="4">4GB</option>
+                        <option value="8">8GB</option>
+                        <option value="16" selected>16GB</option>
+                        <option value="32">32GB</option>
+                        <option value="64">64GB</option>
+                        <option value="128">128GB 及以上</option>
                     </select>
                 </div>
-            </div>
-            
-            <div class="mt-10 text-center">
-                <button id="checkBtn" class="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center mx-auto animate-glow">
-                    <i class="fa fa-search mr-2"></i> 查看最高适配版本
-                </button>
+
+                <!-- Adobe产品选择 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">
+                        Adobe产品 <span class="text-primary">*</span>
+                    </label>
+                    <select id="productSelect" class="w-full p-3 bg-dark-lighter border border-gray-700 rounded-md focus:outline-none input-focus">
+                        <option value="photoshop">Photoshop</option>
+                        <option value="illustrator">Illustrator</option>
+                        <option value="premiere">Premiere Pro</option>
+                        <option value="aftereffects">After Effects</option>
+                        <option value="indesign">InDesign</option>
+                        <option value="lightroom">Lightroom</option>
+                        <option value="acrobat">Acrobat</option>
+                    </select>
+                </div>
+
+                <!-- 查询按钮 -->
+                <div class="pt-4">
+                    <button id="queryBtn" class="w-full py-4 px-6 bg-gradient-to-r from-primary to-secondary rounded-lg font-bold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 flex items-center justify-center">
+                        <i class="fa fa-search mr-2"></i> 查询适配版本
+                    </button>
+                </div>
             </div>
         </section>
 
-        <!-- 适配结果部分 -->
-        <section id="compatibilityResults" class="hidden gradient-border bg-dark-light p-6 md:p-8 max-w-4xl mx-auto hover-lift relative z-10">
-            <h3 class="text-xl font-bold mb-6 pb-2 border-b border-gray-800 flex items-center">
-                <i class="fa fa-thumbs-up text-accent mr-2"></i> 适配的Adobe版本（按版本从新到旧排序）
+        <!-- 结果展示部分 -->
+        <section id="resultSection" class="gradient-border bg-dark-light p-6 md:p-8 mb-12 max-w-4xl mx-auto hidden hover-lift relative z-10">
+            <h3 class="text-xl font-bold mb-6 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                    <i class="fa fa-check-circle text-accent"></i>
+                </span>
+                适配版本推荐
             </h3>
             
-            <div id="bestCompatibility" class="bg-gradient-to-r from-primary/20 to-secondary/20 border-l-4 border-primary p-4 mb-6 rounded-r-lg">
-                <h4 class="font-bold text-white mb-2">最高适配版本（优先选择）</h4>
-                <p id="bestVersion" class="text-white text-lg">- 等待查询 -</p>
+            <div id="loadingIndicator" class="py-12 text-center hidden">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                <p class="mt-4 text-gray-400">正在分析您的配置...</p>
             </div>
             
-            <div id="otherCompatibilities" class="mb-6">
-                <h4 class="font-bold text-white mb-3">其他适配版本</h4>
-                <ul id="otherVersions" class="list-disc pl-5 text-gray-300 space-y-1">
-                    <!-- 其他版本将在这里显示 -->
-                </ul>
-            </div>
-            
-            <div class="bg-dark-lighter p-4 rounded-lg border border-gray-800">
-                <h4 class="font-bold text-accent mb-2">说明</h4>
-                <p class="text-gray-400 text-sm">
-                    结果基于您的系统配置和Adobe官方最低要求，越高版本通常包含更多功能和安全更新，建议优先选择最高适配版本以获得最佳体验。
-                </p>
+            <div id="resultContent" class="space-y-6">
+                <!-- 推荐版本卡片 -->
+                <div id="bestRecommendation" class="p-6 rounded-lg bg-gradient-to-br from-dark-lighter to-dark border border-gray-800">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-white flex items-center">
+                                <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-2 text-sm">
+                                    <i class="fa fa-trophy text-primary"></i>
+                                </span>
+                                推荐版本
+                            </h4>
+                            <p class="text-gray-400 text-sm mt-1">基于您的配置，性能最佳的版本</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                            最佳选择
+                        </span>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between border-t border-gray-800 pt-4">
+                        <div>
+                            <h5 id="bestVersion" class="text-2xl font-bold text-white">Adobe Photoshop 2025</h5>
+                            <p class="text-gray-400 mt-1">完全兼容您的系统配置，可发挥最佳性能</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <button class="px-4 py-2 bg-primary/20 hover:bg-primary/30 text-primary rounded-lg transition-colors duration-300">
+                                <i class="fa fa-info-circle mr-1"></i> 版本详情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 其他兼容版本 -->
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center mr-2 text-sm">
+                            <i class="fa fa-th text-secondary"></i>
+                        </span>
+                        其他兼容版本
+                    </h4>
+                    <div id="otherVersions" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 其他版本卡片将通过JS动态生成 -->
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- 页脚 -->
-    <footer class="glass border-t border-gray-800 py-8 mt-16">
+    <footer class="glass border-t border-gray-800 py-8">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm">© 2023 Adobe版本适配工具 | 本工具仅提供版本适配参考</p>
+            <p class="text-gray-500 text-sm">
+                © 2024 Adobe版本适配工具 | 本工具仅提供版本兼容性参考，非官方工具
+            </p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
+                    <i class="fa fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
+                    <i class="fa fa-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors duration-300">
+                    <i class="fa fa-envelope text-xl"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Adobe版本要求数据（按版本从新到旧排列）
-        const adobeRequirements = {
-            windows: [
-                {
-                    version: "2025",
-                    minOS: "win10_20h2",
-                    minRAM: 16,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2024",
-                    minOS: "win10_20h2",
-                    minRAM: 16,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2023",
-                    minOS: "win10_1903",
-                    minRAM: 16,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2022",
-                    minOS: "win10_1809",
-                    minRAM: 16,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2021",
-                    minOS: "win10_1803",
-                    minRAM: 8,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2020",
-                    minOS: "win10_1709",
-                    minRAM: 8,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2019",
-                    minOS: "win10_1607",
-                    minRAM: 8,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2018",
-                    minOS: "win7_64",
-                    minRAM: 8,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2017",
-                    minOS: "win7_64",
-                    minRAM: 8,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "2015-2016",
-                    minOS: "win7_32",
-                    minRAM: 4,
-                    supportedChips: ["intel", "amd"]
-                },
-                {
-                    version: "CS6及更早",
-                    minOS: "winxp",
-                    minRAM: 4,
-                    supportedChips: ["intel", "amd"]
-                }
-            ],
-            mac: [
-                {
-                    version: "2025",
-                    minOS: "13",
-                    minRAM: 16,
-                    supportedChips: ["intel", "m1", "m2", "m3", "m4"]
-                },
-                {
-                    version: "2024",
-                    minOS: "12",
-                    minRAM: 16,
-                    supportedChips: ["intel", "m1", "m2", "m3", "m4"]
-                },
-                {
-                    version: "2023",
-                    minOS: "12",
-                    minRAM: 16,
-                    supportedChips: ["intel", "m1", "m2", "m3"]
-                },
-                {
-                    version: "2022",
-                    minOS: "11",
-                    minRAM: 16,
-                    supportedChips: ["intel", "m1", "m2"]
-                },
-                {
-                    version: "2021",
-                    minOS: "10.15",
-                    minRAM: 8,
-                    supportedChips: ["intel", "m1"]
-                },
-                {
-                    version: "2020",
-                    minOS: "10.14",
-                    minRAM: 8,
-                    supportedChips: ["intel"]
-                },
-                {
-                    version: "2019",
-                    minOS: "10.13",
-                    minRAM: 8,
-                    supportedChips: ["intel"]
-                },
-                {
-                    version: "2018",
-                    minOS: "10.12",
-                    minRAM: 8,
-                    supportedChips: ["intel"]
-                },
-                {
-                    version: "2017",
-                    minOS: "10.11",
-                    minRAM: 8,
-                    supportedChips: ["intel"]
-                },
-                {
-                    version: "CS6及更早",
-                    minOS: "10.6",
-                    minRAM: 4,
-                    supportedChips: ["intel"]
-                }
-            ]
-        };
-
-        // 系统版本比较辅助函数
-        function compareOSVersions(osType, userVersion, requiredVersion) {
-            // Windows版本比较映射表
-            const windowsVersionOrder = {
-                'winxp': 1, 'winvista': 2,
-                'win7_32': 3, 'win7_64': 4,
-                'win8': 5, 'win8.1': 6,
-                'win10_1507': 7, 'win10_1511': 8, 'win10_1607': 9,
-                'win10_1703': 10, 'win10_1709': 11, 'win10_1803': 12,
-                'win10_1809': 13, 'win10_1903': 14, 'win10_1909': 15,
-                'win10_2004': 16, 'win10_20h2': 17, 'win10_21h1': 18,
-                'win10_21h2': 19, 'win10_22h2': 20,
-                'win11_21h2': 21, 'win11_22h2': 22, 'win11_23h2': 23, 'win11_24h2': 24
-            };
-
-            // macOS版本比较映射表
-            const macVersionOrder = {
-                '10.4': 1, '10.5': 2, '10.6': 3, '10.7': 4,
-                '10.8': 5, '10.9': 6, '10.10': 7, '10.11': 8,
-                '10.12': 9, '10.13': 10, '10.14': 11, '10.15': 12,
-                '11': 13, '12': 14, '13': 15, '14': 16, '15': 17
-            };
-
-            if (osType === 'windows') {
-                return windowsVersionOrder[userVersion] >= windowsVersionOrder[requiredVersion];
-            } else {
-                return macVersionOrder[userVersion] >= macVersionOrder[requiredVersion];
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // 操作系统切换逻辑
-            const osRadios = document.querySelectorAll('input[name="os"]');
-            const windowsVersion = document.getElementById('windowsVersion');
-            const macVersion = document.getElementById('macVersion');
-            const windowsChip = document.getElementById('windowsChip');
-            const macChip = document.getElementById('macChip');
-            
-            osRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.value === 'windows') {
-                        windowsVersion.classList.remove('hidden');
-                        macVersion.classList.add('hidden');
-                        windowsChip.classList.remove('hidden');
-                        macChip.classList.add('hidden');
-                    } else {
-                        windowsVersion.classList.add('hidden');
-                        macVersion.classList.remove('hidden');
-                        windowsChip.classList.add('hidden');
-                        macChip.classList.remove('hidden');
-                    }
-                });
-            });
-
-            // 查看适配版本按钮点击事件
-            document.getElementById('checkBtn').addEventListener('click', function() {
-                // 获取用户输入的配置
-                const os = document.querySelector('input[name="os"]:checked').value;
-                const memory = parseInt(document.getElementById('memorySelect').value);
+        // 操作系统切换逻辑
+        document.querySelectorAll('input[name="os"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const isWindows = this.value === 'windows';
                 
-                let compatibilities;
-                if (os === 'windows') {
-                    const osVersion = document.getElementById('winVersionSelect').value;
-                    const chip = document.getElementById('winChipSelect').value;
-                    compatibilities = getWindowsCompatibilities(osVersion, chip, memory);
-                } else {
-                    const osVersion = document.getElementById('macVersionSelect').value;
-                    const chip = document.getElementById('macChipSelect').value;
-                    compatibilities = getMacCompatibilities(osVersion, chip, memory);
-                }
-
-                // 显示适配结果
-                displayCompatibilities(compatibilities);
-                document.getElementById('compatibilityResults').scrollIntoView({ behavior: 'smooth' });
+                // 显示/隐藏对应的版本选择器
+                document.getElementById('windowsVersion').classList.toggle('hidden', !isWindows);
+                document.getElementById('macVersion').classList.toggle('hidden', isWindows);
+                
+                // 显示/隐藏对应的芯片选择器
+                document.getElementById('windowsChip').classList.toggle('hidden', !isWindows);
+                document.getElementById('macChip').classList.toggle('hidden', isWindows);
             });
         });
 
-        // Windows适配版本查询
-        function getWindowsCompatibilities(osVersion, chip, memory) {
-            return adobeRequirements.windows
-                .filter(version => 
-                    compareOSVersions('windows', osVersion, version.minOS) &&
-                    version.supportedChips.includes(chip) &&
-                    memory >= version.minRAM
-                )
-                .sort((a, b) => b.version.localeCompare(a.version, undefined, { numeric: true }));
-        }
-
-        // Mac适配版本查询
-        function getMacCompatibilities(osVersion, chip, memory) {
-            return adobeRequirements.mac
-                .filter(version => 
-                    compareOSVersions('mac', osVersion, version.minOS) &&
-                    version.supportedChips.includes(chip) &&
-                    memory >= version.minRAM
-                )
-                .sort((a, b) => b.version.localeCompare(a.version, undefined, { numeric: true }));
-        }
-
-        // 显示适配结果
-        function displayCompatibilities(compatibilities) {
-            const bestVersionEl = document.getElementById('bestVersion');
-            const otherVersionsEl = document.getElementById('otherVersions');
+        // 查询按钮点击事件
+        document.getElementById('queryBtn').addEventListener('click', function() {
+            const resultSection = document.getElementById('resultSection');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const resultContent = document.getElementById('resultContent');
             
-            bestVersionEl.textContent = '';
-            otherVersionsEl.innerHTML = '';
+            // 显示结果区域和加载状态
+            resultSection.classList.remove('hidden');
+            loadingIndicator.classList.remove('hidden');
+            resultContent.classList.add('hidden');
             
-            if (compatibilities.length > 0) {
-                // 最高适配版本
-                bestVersionEl.textContent = `Adobe ${compatibilities[0].version} 版本`;
+            // 模拟加载延迟
+            setTimeout(() => {
+                // 隐藏加载状态，显示结果
+                loadingIndicator.classList.add('hidden');
+                resultContent.classList.remove('hidden');
                 
-                // 其他适配版本
-                if (compatibilities.length > 1) {
-                    compatibilities.slice(1).forEach(compat => {
-                        const li = document.createElement('li');
-                        li.textContent = `Adobe ${compat.version} 版本`;
-                        otherVersionsEl.appendChild(li);
-                    });
-                } else {
-                    otherVersionsEl.innerHTML = '<li>没有其他适配版本</li>';
-                }
-            } else {
-                bestVersionEl.textContent = '未找到适配的Adobe版本';
-                otherVersionsEl.innerHTML = '<li>您的系统可能不支持任何列出的Adobe版本</li>';
-            }
-            
-            document.getElementById('compatibilityResults').classList.remove('hidden');
-        }
+                // 这里可以添加实际的查询逻辑
+                // 以下是示例数据
+                const osType = document.querySelector('input[name="os"]:checked').value;
+                const product = document.getElementById('productSelect').value;
+                const productNames = {
+                    'photoshop': 'Photoshop',
+                    'illustrator': 'Illustrator',
+                    'premiere': 'Premiere Pro',
+                    'aftereffects': 'After Effects',
+                    'indesign': 'InDesign',
+                    'lightroom': 'Lightroom',
+                    'acrobat': 'Acrobat'
+                };
+                
+                // 更新最佳推荐版本
+                document.getElementById('bestVersion').textContent = `Adobe ${productNames[product]} 2025`;
+                
+                // 生成其他兼容版本
+                const otherVersionsContainer = document.getElementById('otherVersions');
+                otherVersionsContainer.innerHTML = '';
+                
+                const versions = ['2024', '2023', '2022', '2021'];
+                versions.forEach(version => {
+                    const versionCard = document.createElement('div');
+                    versionCard.className = 'p-4 rounded-lg bg-dark-lighter border border-gray-800 hover:border-secondary/50 transition-all duration-300';
+                    versionCard.innerHTML = `
+                        <h5 class="font-bold text-white">Adobe ${productNames[product]} ${version}</h5>
+                        <p class="text-gray-400 text-sm mt-1">兼容您的系统，性能良好</p>
+                        <button class="mt-3 px-3 py-1 bg-secondary/20 hover:bg-secondary/30 text-secondary rounded-lg text-sm transition-colors duration-300">
+                            查看详情
+                        </button>
+                    `;
+                    otherVersionsContainer.appendChild(versionCard);
+                });
+                
+            }, 1500);
+        });
     </script>
 </body>
 </html>

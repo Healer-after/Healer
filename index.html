@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>舜禹工作室 - 项目集合</title>
+    <title>舜禹工作室 - 项目入口</title>
     <!-- 引入外部资源 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     
     <!-- 配置Tailwind自定义主题 -->
     <script>
@@ -17,28 +16,11 @@
                     colors: {
                         primary: '#165DFF',
                         secondary: '#36CFC9',
-                        accent: '#722ED1',
-                        dark: '#1D2129',
-                        light: '#F2F3F5'
+                        neutral: '#F5F7FA',
+                        dark: '#1D2129'
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['"Noto Sans SC"', 'sans-serif']
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out forwards',
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        }
+                        sans: ['"Noto Sans SC"', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -51,627 +33,162 @@
             .content-auto {
                 content-visibility: auto;
             }
-            .text-gradient {
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+            .project-card {
+                @apply rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30;
             }
-            .card-hover {
-                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
-            }
-            .nav-link {
-                @apply relative px-3 py-2 text-gray-600 hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full;
+            .btn-primary {
+                @apply bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center justify-center;
             }
         }
     </style>
     
     <!-- 引入中文字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
     <!-- 导航栏 -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 bg-white/80 backdrop-blur-md">
-        <div class="container mx-auto px-4 md:px-6">
-            <nav class="flex items-center justify-between">
-                <!-- Logo -->
-                <a href="#home" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
-                        <i class="fa fa-cube text-xl"></i>
-                    </div>
-                    <span class="text-xl font-display font-bold text-dark">舜禹工作室</span>
-                </a>
-                
-                <!-- 桌面端导航 -->
-                <div class="hidden md:flex items-center space-x-1">
-                    <a href="#home" class="nav-link">首页</a>
-                    <a href="#projects" class="nav-link">项目集合</a>
-                    <a href="#categories" class="nav-link">项目分类</a>
-                    <a href="#about" class="nav-link">关于我们</a>
-                    <a href="https://github.com/Healer-after/Healer" target="_blank" class="ml-4 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors flex items-center space-x-2">
-                        <i class="fa fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-white">
+                    <i class="fa fa-cube"></i>
                 </div>
-                
-                <!-- 移动端菜单按钮 -->
-                <button id="menu-toggle" class="md:hidden text-gray-700 hover:text-primary">
-                    <i class="fa fa-bars text-2xl"></i>
-                </button>
-            </nav>
-            
-            <!-- 移动端导航菜单 -->
-            <div id="mobile-menu" class="md:hidden hidden mt-4 py-4 border-t border-gray-100 animate-fade-in">
-                <div class="flex flex-col space-y-3">
-                    <a href="#home" class="nav-link py-2">首页</a>
-                    <a href="#projects" class="nav-link py-2">项目集合</a>
-                    <a href="#categories" class="nav-link py-2">项目分类</a>
-                    <a href="#about" class="nav-link py-2">关于我们</a>
-                    <a href="https://github.com/Healer-after/Healer" target="_blank" class="mt-2 px-4 py-2 rounded-lg bg-primary text-white w-fit flex items-center space-x-2">
-                        <i class="fa fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                </div>
-            </div>
+                <span class="text-lg font-bold text-dark">舜禹工作室</span>
+            </a>
+            <a href="mailto:3196705735@qq.com" class="flex items-center text-gray-600 hover:text-primary transition-colors">
+                <i class="fa fa-envelope mr-1"></i>
+                <span class="hidden sm:inline">联系我们</span>
+            </a>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
-    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
-        <!-- 背景装饰 -->
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary/5 to-accent/5 -z-10"></div>
-        <div class="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-secondary/10 blur-3xl -z-10"></div>
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-8 md:py-12">
+        <!-- 页面标题 -->
+        <div class="text-center mb-10">
+            <h1 class="text-2xl md:text-3xl font-bold text-dark mb-2">项目集合</h1>
+            <p class="text-gray-500">探索我们已开发和计划中的项目</p>
+        </div>
         
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="order-2 lg:order-1 space-y-6">
-                    <div class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                        创新 · 技术 · 多样性
-                    </div>
-                    <h1 class="text-[clamp(2.2rem,5vw,3.5rem)] font-display font-bold leading-tight text-dark">
-                        舜禹工作室的 <br>
-                        <span class="bg-gradient-to-r from-primary to-accent text-gradient">多元化项目集合</span>
-                    </h1>
-                    <p class="text-lg text-gray-600 max-w-xl">
-                        我们专注于多种技术领域的探索与实践，从创意设计到技术开发，
-                        这里汇聚了我们团队的各类精选项目，展现技术与创意的完美结合。
-                    </p>
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#projects" class="px-6 py-3 rounded-lg bg-gradient-to-r from-primary to-accent text-white font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5">
-                            浏览所有项目 <i class="fa fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="#categories" class="px-6 py-3 rounded-lg bg-white text-gray-800 font-medium border border-gray-200 shadow-md hover:shadow-lg transition-all">
-                            按分类查看
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="order-1 lg:order-2 relative">
-                    <div class="relative z-10 grid grid-cols-2 gap-4">
-                        <div class="rounded-xl overflow-hidden shadow-xl transform translate-y-8">
-                            <img src="https://picsum.photos/seed/project1/600/800" alt="工作室项目展示" class="w-full h-auto hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div class="rounded-xl overflow-hidden shadow-xl">
-                            <img src="https://picsum.photos/seed/project2/600/800" alt="工作室项目展示" class="w-full h-auto hover:scale-105 transition-transform duration-500">
-                        </div>
-                    </div>
-                    <!-- 装饰元素 -->
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-gradient-to-r from-primary to-accent blur-3xl opacity-20 -z-10"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 项目分类 -->
-    <section id="categories" class="py-20 bg-white">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
-                    项目分类
-                </div>
-                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
-                    探索不同领域的项目
-                </h2>
-                <p class="text-gray-600">
-                    我们的项目覆盖多个技术领域和应用场景，点击分类查看相关项目
-                </p>
-            </div>
+        <!-- 已开发项目 -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fa fa-check-circle text-green-500 mr-2"></i>
+                已开发项目
+            </h2>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <!-- 分类1 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                        <i class="fa fa-desktop text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 主要项目 -->
+                <div class="project-card md:col-span-2 lg:col-span-3">
+                    <div class="md:flex">
+                        <!-- 项目图片（使用低分辨率占位图减少加载时间） -->
+                        <div class="md:w-1/3 bg-neutral">
+                            <img src="https://picsum.photos/seed/adobe/600/400?quality=70" alt="Adobe版本支持推荐系统" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        
+                        <div class="p-5 md:w-2/3">
+                            <div class="flex items-center mb-2">
+                                <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">设计工具</span>
+                                <span class="text-xs text-gray-500 ml-3">最后更新: 2025-08</span>
+                            </div>
+                            
+                            <h3 class="text-lg font-bold mb-2">Adobe软件版本支持推荐系统</h3>
+                            
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2 md:line-clamp-3">
+                                专业的Adobe软件版本推荐工具，根据用户的硬件配置、使用场景和具体需求，推荐最适合的Adobe系列软件版本，同时提供各版本的兼容性报告和安装指南。
+                            </p>
+                            
+                            <div class="flex flex-wrap gap-3 mt-auto">
+                                <a href="./projects/index.html" target="_blank" class="btn-primary text-sm">
+                                    <i class="fa fa-external-link mr-1"></i> 访问项目
+                                </a>
+                                <a href="https://github.com/Healer-after/Healer" target="_blank" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm inline-flex items-center">
+                                    <i class="fa fa-github mr-1"></i> 查看源码
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-dark">前端开发</h3>
-                    <p class="text-gray-500 text-sm mt-1">12个项目</p>
                 </div>
                 
-                <!-- 分类2 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
-                        <i class="fa fa-code text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-dark">后端开发</h3>
-                    <p class="text-gray-500 text-sm mt-1">8个项目</p>
-                </div>
-                
-                <!-- 分类3 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
-                        <i class="fa fa-paint-brush text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-dark">设计工具</h3>
-                    <p class="text-gray-500 text-sm mt-1">5个项目</p>
-                </div>
-                
-                <!-- 分类4 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
-                        <i class="fa fa-mobile text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-dark">移动应用</h3>
-                    <p class="text-gray-500 text-sm mt-1">6个项目</p>
-                </div>
-                
-                <!-- 分类5 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
-                        <i class="fa fa-database text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-dark">数据处理</h3>
-                    <p class="text-gray-500 text-sm mt-1">4个项目</p>
-                </div>
-                
-                <!-- 分类6 -->
-                <div class="category-card card-hover bg-gray-50 rounded-xl p-6 text-center cursor-pointer group">
-                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                        <i class="fa fa-cogs text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-dark">工具脚本</h3>
-                    <p class="text-gray-500 text-sm mt-1">9个项目</p>
-                </div>
+                <!-- 其他已开发项目可以在这里继续添加 -->
             </div>
-        </div>
-    </section>
-
-    <!-- 精选项目 -->
-    <section id="projects" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                <div>
-                    <div class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                        项目集合
-                    </div>
-                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
-                        精选项目展示
-                    </h2>
-                    <p class="text-gray-600 max-w-2xl">
-                        探索我们团队开发的各类项目，涵盖不同技术领域和应用场景
-                    </p>
-                </div>
-                <a href="https://github.com/Healer-after/Healer" target="_blank" class="mt-6 md:mt-0 inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors">
-                    查看所有项目 <i class="fa fa-arrow-right ml-2"></i>
-                </a>
-            </div>
+        </section>
+        
+        <!-- 待开发项目 -->
+        <section>
+            <h2 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fa fa-clock-o text-yellow-500 mr-2"></i>
+                计划开发项目
+            </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 项目1 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/adobe/600/400" alt="Adobe版本支持推荐系统" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-secondary text-white text-xs font-medium rounded-full">
-                            设计工具
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 待开发项目1 -->
+                <div class="project-card bg-gray-50 border-dashed">
+                    <div class="p-5 text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fa fa-code text-gray-500"></i>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">Adobe版本支持推荐系统</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            专业的Adobe软件版本推荐工具，根据用户的硬件配置和使用场景，推荐最适合的Adobe系列软件版本，提供兼容性报告和安装指南。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-06更新</span>
-                            </div>
-                            <a href="./projects/index.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
+                        <h3 class="text-lg font-bold mb-1">前端组件库</h3>
+                        <p class="text-gray-500 text-sm mb-4">基于Tailwind CSS的响应式组件集合</p>
+                        <span class="inline-block px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs">计划中</span>
                     </div>
                 </div>
                 
-                <!-- 项目2 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/frontend/600/400" alt="响应式网站模板集合" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
-                            前端开发
+                <!-- 待开发项目2 -->
+                <div class="project-card bg-gray-50 border-dashed">
+                    <div class="p-5 text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fa fa-mobile text-gray-500"></i>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">响应式网站模板集合</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            一套精心设计的响应式网站模板，适用于各种场景，包含完整的前端代码和使用文档，支持快速搭建企业网站、个人博客和作品集。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-05更新</span>
-                            </div>
-                            <a href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
+                        <h3 class="text-lg font-bold mb-1">移动原型工具</h3>
+                        <p class="text-gray-500 text-sm mb-4">快速生成移动应用交互原型</p>
+                        <span class="inline-block px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs">计划中</span>
                     </div>
                 </div>
                 
-                <!-- 项目3 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/script/600/400" alt="自动化工作流工具" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
-                            工具脚本
+                <!-- 待开发项目3 -->
+                <div class="project-card bg-gray-50 border-dashed">
+                    <div class="p-5 text-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fa fa-database text-gray-500"></i>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">自动化工作流工具</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            提高工作效率的自动化脚本集合，支持文件处理、数据转换、批量操作等功能，可根据需求自定义扩展，适用于设计师和开发者。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-04更新</span>
-                            </div>
-                            <a href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 项目4 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/mobile/600/400" alt="移动应用原型框架" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
-                            移动应用
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">移动应用原型框架</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            跨平台移动应用开发框架，提供丰富的UI组件和交互效果，支持快速构建高质量的移动应用原型，并可直接导出为生产代码。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-03更新</span>
-                            </div>
-                            <a href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 项目5 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/data/600/400" alt="数据分析可视化工具" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-yellow-500 text-white text-xs font-medium rounded-full">
-                            数据处理
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">数据分析可视化工具</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            简单易用的数据分析与可视化工具，支持多种数据源导入和图表展示，帮助用户快速理解数据规律，生成专业的数据报告。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-02更新</span>
-                            </div>
-                            <a href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 项目6 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/backend/600/400" alt="API服务框架" class="w-full h-56 object-cover">
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-accent text-white text-xs font-medium rounded-full">
-                            后端开发
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-dark mb-2">API服务快速开发框架</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            轻量级后端API开发框架，包含用户认证、权限管理、数据验证等基础功能，支持快速搭建稳定可靠的API服务，适用于各类应用。
-                        </p>
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <div class="flex items-center space-x-1 text-sm text-gray-500">
-                                <i class="fa fa-calendar"></i>
-                                <span>2023-01更新</span>
-                            </div>
-                            <a href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors">
-                                查看详情
-                            </a>
-                        </div>
+                        <h3 class="text-lg font-bold mb-1">数据可视化工具</h3>
+                        <p class="text-gray-500 text-sm mb-4">简易数据导入与图表生成工具</p>
+                        <span class="inline-block px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs">计划中</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 项目统计 -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
-                    项目统计
-                </div>
-                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
-                    我们的项目数据
-                </h2>
-                <p class="text-gray-600">
-                    各领域项目分布和开发进度统计
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-bold mb-6">项目领域分布</h3>
-                    <div class="h-80">
-                        <canvas id="projectCategoryChart"></canvas>
-                    </div>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-bold mb-6">项目开发进度</h3>
-                    <div class="h-80">
-                        <canvas id="projectProgressChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 关于我们 -->
-    <section id="about" class="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://picsum.photos/seed/team/800/600" alt="舜禹工作室团队" class="w-full h-auto">
-                    </div>
-                    <!-- 装饰元素 -->
-                    <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-primary/10 rounded-full -z-10"></div>
-                    <div class="absolute -top-6 -left-6 w-24 h-24 border-4 border-secondary/20 rounded-lg -z-10"></div>
-                </div>
-                
-                <div class="space-y-6">
-                    <div class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                        关于我们
-                    </div>
-                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
-                        舜禹工作室
-                    </h2>
-                    <p class="text-gray-600">
-                        舜禹工作室是一个多元化的技术团队，专注于多个领域的技术探索与项目开发。我们注重创新与实践，致力于打造高质量的技术解决方案和工具。
-                    </p>
-                    <p class="text-gray-600">
-                        无论是前端开发、后端架构，还是设计工具、数据分析，我们都在不断探索和实践，希望通过技术创新为用户带来更高效、更优质的体验。
-                    </p>
-                    
-                    <div class="pt-4">
-                        <h3 class="text-xl font-bold mb-4">联系我们</h3>
-                        <div class="flex flex-col space-y-3">
-                            <a href="mailto:3196705735@qq.com" class="flex items-center space-x-3 text-gray-700 hover:text-primary transition-colors">
-                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                                    <i class="fa fa-envelope"></i>
-                                </div>
-                                <span>3196705735@qq.com</span>
-                            </a>
-                            <a href="https://github.com/Healer-after/Healer" target="_blank" class="flex items-center space-x-3 text-gray-700 hover:text-primary transition-colors">
-                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                                    <i class="fa fa-github"></i>
-                                </div>
-                                <span>GitHub 仓库</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- 页脚 -->
-    <footer class="bg-dark text-white py-12">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
-                            <i class="fa fa-cube text-xl"></i>
-                        </div>
-                        <span class="text-xl font-display font-bold">舜禹工作室</span>
-                    </div>
-                    <p class="text-gray-400 mb-6 max-w-md">
-                        多元化的技术探索与项目开发团队，致力于通过创新技术打造优质解决方案。
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="fa fa-github"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                    </div>
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-500 text-sm">© 2023 舜禹工作室</p>
                 </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
-                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">项目集合</a></li>
-                        <li><a href="#categories" class="text-gray-400 hover:text-white transition-colors">项目分类</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
-                    </ul>
+                <div class="flex items-center space-x-4">
+                    <a href="mailto:3196705735@qq.com" class="text-gray-500 hover:text-primary transition-colors">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                    <a href="https://github.com/Healer-after/Healer" target="_blank" class="text-gray-500 hover:text-primary transition-colors">
+                        <i class="fa fa-github"></i>
+                    </a>
                 </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">联系我们</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center space-x-2 text-gray-400">
-                            <i class="fa fa-envelope"></i>
-                            <a href="mailto:3196705735@qq.com" class="hover:text-white transition-colors">3196705735@qq.com</a>
-                        </li>
-                        <li class="flex items-center space-x-2 text-gray-400">
-                            <i class="fa fa-github"></i>
-                            <a href="https://github.com/Healer-after/Healer" target="_blank" class="hover:text-white transition-colors">GitHub</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-                <p>&copy; 2023 舜禹工作室. 保留所有权利.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- 简单的交互脚本 -->
     <script>
-        // 导航栏滚动效果
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md', 'py-2');
-                navbar.classList.remove('py-4');
-            } else {
-                navbar.classList.remove('shadow-md', 'py-2');
-                navbar.classList.add('py-4');
-            }
-        });
-        
-        // 移动端菜单切换
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const icon = menuToggle.querySelector('i');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            }
-        });
-        
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // 关闭移动端菜单
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                }
-            });
-        });
-        
-        // 图表初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            // 项目分类图表
-            const categoryCtx = document.getElementById('projectCategoryChart').getContext('2d');
-            new Chart(categoryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['前端开发', '后端开发', '设计工具', '移动应用', '数据处理', '工具脚本'],
-                    datasets: [{
-                        data: [12, 8, 5, 6, 4, 9],
-                        backgroundColor: [
-                            'rgba(22, 93, 255, 0.7)',
-                            'rgba(114, 46, 209, 0.7)',
-                            'rgba(54, 207, 201, 0.7)',
-                            'rgba(52, 211, 153, 0.7)',
-                            'rgba(234, 179, 8, 0.7)',
-                            'rgba(244, 114, 182, 0.7)'
-                        ],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        }
-                    },
-                    cutout: '60%'
-                }
-            });
-            
-            // 项目进度图表
-            const progressCtx = document.getElementById('projectProgressChart').getContext('2d');
-            new Chart(progressCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['进行中', '已完成', '计划中', '已暂停'],
-                    datasets: [{
-                        label: '项目数量',
-                        data: [8, 20, 6, 3],
-                        backgroundColor: [
-                            'rgba(22, 93, 255, 0.7)',
-                            'rgba(52, 211, 153, 0.7)',
-                            'rgba(234, 179, 8, 0.7)',
-                            'rgba(244, 114, 182, 0.7)'
-                        ],
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            }
-                        }
-                    }
-                }
-            });
-        });
-        
-        // 分类卡片点击效果
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', () => {
-                // 这里可以添加分类筛选逻辑
-                alert('将显示 "' + card.querySelector('h3').textContent + '" 分类下的所有项目');
+        // 图片加载错误处理
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                // 加载失败时显示默认图标
+                this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM6dj0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnMyLjQ4IDEwIDYgMTAgNi0yLjQ4IDYtMTAtMi40OC0xMC02LTEwUzEyIDYuNDggMTIgMnptMCAxOGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTguMDAxIDgtOCA4eiIvPjxwYXRoIGQ9Ik0xNCAxMkg2djJoOGwtMi0yem0wIDZoLTJ2LTRoMnY0em00LTZINnYyaDR2LTJ6Ii8+PC9zdmc+'
+                this.alt = '项目图片';
             });
         });
     </script>
